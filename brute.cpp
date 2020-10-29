@@ -21,50 +21,33 @@ void BruteTS::loadData(double** mat, int size)
 	adjMatSize = size;
 }
 
-int* BruteTS::findOptimalTour()
+std::vector<int> BruteTS::findOptimalTour()
 {
-	int* optimalTour = nullptr;
+	std::vector<int> optimalTour;
 	
 	return optimalTour;
 }
 
-void BruteTS::heapsAlg(int arr[], int size, int n)
+void BruteTS::permute(std::vector<int>& mat)
 {
-	/*int arr[size];
-	for (int i=0; i < size; ++i)
+	do
 	{
-		arr[i] = mat[i];
-	}*/
-	
-	if (size == 1)
-	{
-		std::cout << "PERMUTATION ADDED: ";
-		for (int i=0; i < n; ++i)
-		{
-			std::cout << arr[i] << " ";
-		}
-		std::cout << std::endl;
-		
+		std::vector<int> arr = mat;
 		permutations.push_back(arr);
-		return;
 	}
-	
-	for (int i=0; i < size; ++i)
-	{
-		heapsAlg(arr, size-1, n);
-		if ((size % 2) == 0)
-		{
-			swap(arr[i], arr[size-1]);
-		}
-		else
-		{
-			swap(arr[0], arr[size-1]);
-		}
-	}
+	while (next_permutation(mat.begin(), mat.end()));
 }
 
-std::vector<int*> BruteTS::getPermutations()
+void BruteTS::printPermutations(int sizeOfTour)
 {
-	return permutations;
+	std::cout << "PERMUTATIONS: \n";
+	for (int i=0; i < permutations.size(); ++i)
+	{
+		for (int j=0; j < sizeOfTour; ++j)
+		{
+			std::cout << permutations.at(i)[j] << " ";
+		}
+		std::cout << std::endl;
+	}
 }
 
