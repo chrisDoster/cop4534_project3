@@ -15,6 +15,58 @@ double** Parser::buildEmptyMatrix()
 	return matrix;
 }
 
+void Parser::calculateDimensions(std::string fileName)
+{
+	try
+	{
+		std::ifstream in(fileName);
+		int numLines = 0;
+		std::string line = "";
+		while (getline(in, line))
+		{
+			numLines++;
+		}
+		// apply quadratic formula to find size of matrix
+		double discriminant = 1 + 4*numLines;
+		int arrSize = (int) (1 + sqrt(discriminant)) / 2;
+		size.x = arrSize;
+		size.y = arrSize;
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "ERROR FINDING DIMENSIONS \n\n";
+	}
+}
+
+void Parser::loadMatrixFromFile(double** matrix, std::string fileName)
+{
+	try
+	{
+		std::ifstream in(fileName);
+		for (int i=0; i < size.x; ++i)
+		{
+			for (int j=0; j < size.y; ++j)
+			{
+				if (i == j)
+				{
+					matrix[i][j] = 0;
+				}
+				else
+				{
+					std::string line = "-1.0";
+					getline(in, line);
+					double ijDist = stod(line);
+					matrix[i][j] = ijDist;
+				}
+			}
+		}
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "ERROR LOADING MATRIX FROM FILE \n\n";
+	}
+}
+
 
 Parser::Parser()
 {
@@ -25,34 +77,16 @@ Parser::Parser()
 double** Parser::parseAdjacencies(std::string fileName)
 {
 	double** matrix = nullptr;
-	try
-	{
-		std::ifstream in(fileName);
+	
+	matrix = buildEmptyMatrix();
+	calculateDimensions(fileName);
+	loadMatrixFromFile(matrix, fileName);
 		
-		// build matrix and initialize with zeros
-		matrix = buildEmptyMatrix();
-		
-		// find number of rows/cols
-		
-		
-		// load matrix from file
-		for (int i=0; i < 20; ++i)
-		{
-			for (int j=0; j < 20; ++j)
-			{
-				if (i == j)
-				{
-					matrix[i][j] = 0;
-				}
-				else
-				{
-					matrix[i][j];
-				}
-			}
-		}
-	}
-	catch (Exception e)
-	{
-		std::cout << "error opening file!! \n\n";
-	}
+	return matrix;
 }
+
+int Parser::getDimensionSize()
+{
+	return size.x;
+}
+

@@ -5,7 +5,8 @@ class GeneticTS
 {
 	private:
 	public:
-		void loadData(double** mat) {}
+		void loadData(double** mat);
+		int* breedTours();
 };
 
 
