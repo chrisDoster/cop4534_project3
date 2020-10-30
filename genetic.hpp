@@ -1,12 +1,14 @@
 #ifndef GENETIC_HPP
 #define GENETIC_HPP
 
+#include <vector>
+
 class GeneticTS
 {
 	private:
 	public:
 		void loadData(double** mat);
-		int* breedTours();
+		std::vector<int> breedTours();
 };
 
 

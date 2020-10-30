@@ -1,6 +1,7 @@
 #ifndef BRUTE_HPP
 #define BRUTE_HPP
 
+#include "adjacency_manager.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -8,9 +9,9 @@
 class BruteTS
 {
 	private:
+		int tourLength;
 		std::vector<std::vector<int>> permutations;
-		double** adjMat;
-		int adjMatSize;
+		AdjacencyManager adjMat;
 		void swap(int& a, int& b);
 		
 	public:

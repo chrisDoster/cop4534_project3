@@ -14,9 +14,9 @@ int main()
 	double** adjMat = nullptr;
 	adjMat = p.parseAdjacencies("distances.txt");
 	int x = p.getDimensionSize();
-	printMatrix(adjMat, x);
+	//printMatrix(adjMat, x);
 	
-	int numCities = 0;
+	int numCities = 8;
 	int numToursPerGen = 0;
 	int numGenerations = 0;
 	double percentMutPerGen = 0;
@@ -24,8 +24,15 @@ int main()
 	bTS.loadData(adjMat, numCities);
 	gTS.loadData(adjMat);
 	
-	int* optimalTour = bTS.findOptimalTour();
-	int* goodTour = gTS.breedTours();
+	
+	std::vector<int> optimalTour = bTS.findOptimalTour();
+	std::vector<int> goodTour = gTS.breedTours();
+	
+	//display results
+	std::cout << "OPTIMAL: \nperm = [ ";
+	for (int i=0; i < optimalTour.size(); ++i)
+		std::cout << optimalTour.at(i) << " ";
+	std::cout << "]" << std::endl;
 	
 	return 0;
 }

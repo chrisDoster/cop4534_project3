@@ -5,9 +5,9 @@ void GeneticTS::loadData(double** mat)
 
 }
 
-int* GeneticTS::breedTours()
+std::vector<int> GeneticTS::breedTours()
 {
-	int* goodTour = nullptr;
+	std::vector<int> goodTour;
 	
 	return goodTour;
 }
