@@ -9,9 +9,11 @@
 class BruteTS
 {
 	private:
+		std::vector<int> bestTour;
 		int tourLength;
 		std::vector<std::vector<int>> permutations;
 		AdjacencyManager adjMat;
+		
 		void swap(int& a, int& b);
 		
 	public:
@@ -20,6 +22,7 @@ class BruteTS
 		std::vector<int> findOptimalTour();
 		void permute(std::vector<int>& mat);
 		void printPermutations(int sizeOfTour);
+		double getOptimalWeight();
 		
 };
 

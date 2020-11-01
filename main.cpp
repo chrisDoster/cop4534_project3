@@ -17,22 +17,33 @@ int main()
 	//printMatrix(adjMat, x);
 	
 	int numCities = 8;
-	int numToursPerGen = 0;
-	int numGenerations = 0;
-	double percentMutPerGen = 0;
+	int numGenerations = 12;
+	int numToursPerGen = 8;
+	int percentMutPerGen = 50;
 	
 	bTS.loadData(adjMat, numCities);
-	gTS.loadData(adjMat);
+	gTS.loadData(adjMat, numCities, numGenerations, numToursPerGen, percentMutPerGen);
 	
 	
 	std::vector<int> optimalTour = bTS.findOptimalTour();
 	std::vector<int> goodTour = gTS.breedTours();
 	
 	//display results
-	std::cout << "OPTIMAL: \nperm = [ ";
+	std::cout << "OPTIMAL: \n[ ";
 	for (int i=0; i < optimalTour.size(); ++i)
 		std::cout << optimalTour.at(i) << " ";
-	std::cout << "]" << std::endl;
+	std::cout << "] ; weight = " << bTS.getOptimalWeight() << std::endl;
+	std::cout << "GOOD: \n[ ";
+	for (int i=0; i < goodTour.size(); ++i)
+		std::cout << goodTour.at(i) << " ";
+	std::cout << "] ; weight = " << gTS.getGoodWeight() << std::endl;
+	
+	
+	for (int i=0; i < x; ++i)
+	{
+		delete [] adjMat[i];
+	}
+	delete [] adjMat;
 	
 	return 0;
 }

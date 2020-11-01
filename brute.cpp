@@ -39,17 +39,8 @@ std::vector<int> BruteTS::findOptimalTour()
 	}
 	
 	optimalTour = permutations.at(0);
-	std::cout << "perm = [ ";
-	for (int i=0; i < permutations.at(0).size(); ++i)
-		std::cout << permutations.at(0).at(i) << " ";
-	std::cout << "] ; weight = " << adjMat.pathWeight(permutations.at(0)) << std::endl;
 	for (int i=1; i < permutations.size(); ++i)
 	{
-		// print
-		std::cout << "perm = [ ";
-		for (int j=0; j < permutations.at(i).size(); ++j)
-			std::cout << permutations.at(i).at(j) << " ";
-		std::cout << "] ; weight = " << adjMat.pathWeight(permutations.at(i)) << std::endl;
 		
 		if (adjMat.pathWeight(permutations.at(i)) < adjMat.pathWeight(optimalTour))
 		{
@@ -57,6 +48,7 @@ std::vector<int> BruteTS::findOptimalTour()
 		}
 	}
 	
+	bestTour = optimalTour;
 	return optimalTour;
 }
 
@@ -81,5 +73,10 @@ void BruteTS::printPermutations(int sizeOfTour)
 		}
 		std::cout << std::endl;
 	}
+}
+
+double BruteTS::getOptimalWeight()
+{
+	return adjMat.pathWeight(bestTour);
 }
 
