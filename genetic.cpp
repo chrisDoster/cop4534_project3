@@ -73,7 +73,7 @@ void GeneticTS::loadData(double** mat, int numCities, int numGenerations, int nu
 	this->numCities = numCities;
 	this->numGenerations = numGenerations;
 	this->numToursPerGen = numToursPerGen;
-	this->numElitesPerGen = numToursPerGen / 4;
+	this->numElitesPerGen = 2;
 	this->percentageMutations = percentMutPerGen;
 	adjMat.loadMatrix(mat, numCities);
 }
@@ -85,17 +85,17 @@ std::vector<int> GeneticTS::breedTours()
 	generation.clear();
 	fillWithRandomTours(generation);
 	
-	std::cout << "first gen: \n";
-	printDoubleVector(generation, adjMat);
+	/*std::cout << "first gen: \n";
+	printDoubleVector(generation, adjMat);*/
 	
 	// test pathweights and select a number of elites
 	std::vector<std::vector<int>> elites = findElites(generation);
 	
-	std::cout << "after elite removal: \n";
+	/*std::cout << "after elite removal: \n";
 	printDoubleVector(generation, adjMat);
 	
 	std::cout << "elites: \n";
-	printDoubleVector(elites, adjMat);
+	printDoubleVector(elites, adjMat);*/
 	
 	// loop start
 	// create new gen from elites, their mutations, and new random permutations
@@ -170,12 +170,9 @@ void GeneticTS::fillWithRandomTours(std::vector<std::vector<int>> gen)
 std::vector<std::vector<int>> GeneticTS::findElites(std::vector<std::vector<int>> gen)
 {
 	std::vector<std::vector<int>> elites;
-	std::cout << "# OF ELITES: " << numElitesPerGen << "\n";
 	for (int i=0; i < numElitesPerGen; ++i)
 	{
 		std::vector<int> minPath = findMinPath();
-		std::cout << "ELITE FOUND!!!!    ";
-		printVector(minPath);
 		elites.push_back(minPath);
 	}
 	
